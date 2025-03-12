@@ -1,0 +1,27 @@
+header {
+  width: 600px;
+  text-align: center;
+  background-color: red;
+  padding: 16px;
+  font-family: Tahoma;
+  color: white;
+  margin-bottom: 16px;
+}
+img {
+  width: 200px;
+  height: 200px;
+}
+article {
+  width: 600px;
+  text-align: justify;
+  background-color: lightpink;
+  padding: 16px;
+  font-family: Verdana;
+}
+p {
+  text-align: justify;
+  font-family: Verdana;
+}
+h4 {
+  margin-bottom: 10px;
+}

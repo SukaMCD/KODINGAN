@@ -1,0 +1,32 @@
+.banner {
+    background-color: darkblue;
+   background: url(gambar/pixel_art_flowers_reflection_trees_Moon_computer_arcade-2271556.jpg);
+  background-size: cover;
+  padding-top: 20%;
+  padding-bottom: 20%;
+  color: white;
+}
+/* .banner {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  color: white;
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+} */

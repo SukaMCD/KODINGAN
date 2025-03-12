@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <img src="GambarRandom/cerdas.jpg" alt="" />
+      <img
+        src="GambarRandom/cyberpunk-future-knight-guardian-tales-thumb.jpg"
+        alt=""
+      />
+      <img src="GambarRandom/main.png" alt="" />
+    </div>
+    <style>
+      .container:hover > :not(:hover) {
+        filter: grayscale(1) blur(5px);
+      }
+      img {
+        width: 160px;
+        transition: 0.8s;
+      }
+      img:hover {
+        scale: 1.2;
+        margin: 10px;
+      }
+    </style>
+  </body>
+</html>

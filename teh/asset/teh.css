@@ -1,0 +1,67 @@
+::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container-slideranjaymabar {
+  scroll-snap-type: y mandatory;
+}
+body {
+  margin: 0;
+  font-family: "Twemoji Country Flags", "Arial", sans-serif;
+  margin-top: 56px;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+@media screen and (min-width: 992px) {
+  .dropdown-menu {
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-40%);
+    top: 100%;
+  }
+}
+.dropdown-menu a .d-flex {
+  transition: all 0.4s;
+}
+.dropdown-menu .col-sm-6:nth-child(1) a:hover .d-flex {
+  background-color: var(--bs-warning-bg-subtle);
+}
+.dropdown-menu .col-sm-6:nth-child(2) a:hover .d-flex {
+  background-color: var(--bs-warning-bg-subtle);
+}
+.dropdown-menu .col-sm-6:nth-child(3) a:hover .d-flex {
+  background-color: var(--bs-warning-bg-subtle);
+}
+.dropdown-menu .col-sm-6:nth-child(4) a:hover .d-flex {
+  background-color: var(--bs-warning-bg-subtle);
+}
+.best-seller {
+  padding: 20px;
+  text-align: center;
+}
+
+.best-seller h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+.best-seller h5 {
+  font-weight: bold;
+}

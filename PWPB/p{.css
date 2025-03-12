@@ -1,0 +1,25 @@
+/*{
+    font-size: 18px;
+    font-family: sans-serif;
+    line-height: 1.75em;
+}
+i{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: darkorange;
+}
+h2{
+    font-family: sans-serif;
+    color: #ff0000;
+}*/
+
+p {
+  color: blue;
+}
+.red {
+  color: white;
+  background-color: red;
+  padding: 5px;
+}
+* {
+  border: 1px solid gray;
+}

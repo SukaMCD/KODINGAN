@@ -1,0 +1,114 @@
+/* Reset margin dan padding untuk semua elemen */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style umum untuk body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+/* Container utama */
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+}
+
+/* Judul form */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style form-group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Style input */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Style button */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Style hasil */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+/* Highlight untuk hasil */
+.highlight {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Status kelulusan */
+.lulus {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.tidak-lulus {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Kategori nilai */
+.grade-a {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.grade-b {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.grade-c {
+  color: #fd7e14;
+  font-weight: bold;
+}
+
+.grade-d {
+  color: #dc3545;
+  font-weight: bold;
+}
