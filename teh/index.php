@@ -1,3 +1,7 @@
+<?php
+session_start(); // Penting! Biar session-nya kebaca.
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,39 +11,152 @@
   <title>Leafly Tea - Premium Tea Beverages</title>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="gambar/favicon.png" />
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-
   <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="asset/teh.css" />
-
   <!-- Meta tags for SEO -->
   <meta name="description" content="Leafly Tea offers premium tea beverages with authentic flavors and a modern twist. Discover our collection of refreshing teas made from high-quality natural ingredients.">
   <meta name="keywords" content="tea, leafly, matcha, lemon tea, milk tea, premium tea">
 </head>
 
 <body>
-  <!-- Header inclusion with PHP -->
-  <?php include "header.html"; ?>
+  <!-- Header Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a href="index.php">
+          <img src="gambar/Leafly_logo-removebg-preview.png" width="150px" alt="Leafly Tea">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-center">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Menu
+              </a>
+              <div class="dropdown-menu p-2 border-0 shadow">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#" class="text-dark text-decoration-none">
+                      <div class="d-flex p-2 align-item-center">
+                        <div class="icon fs-1 px-3 bg-warning-subtle rounded-3">
+                          <img src="gambar/s118465655369280292_p154_i4_w600__1_-removebg-preview.png" width="100px"
+                            height="100px" alt="Ice Tea">
+                        </div>
+                        <div class="text px-3">
+                          <h5>Ice Tea</h5>
+                          <div>Classic cold-brewed tea that's perfectly sweetened and deeply refreshing.</div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="#" class="text-dark text-decoration-none">
+                      <div class="d-flex p-2 align-item-center">
+                        <div class="icon fs-1 px-3 bg-warning-subtle rounded-3">
+                          <img src="gambar/Desain_tanpa_judul__5_-removebg-preview.png" width="100px" height="100px"
+                            alt="Lemon Tea">
+                        </div>
+                        <div class="text px-3">
+                          <h5>Lemon Tea</h5>
+                          <div>Refreshing black tea infused with zesty lemon for a bright.</div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="#" class="text-dark text-decoration-none">
+                      <div class="d-flex p-2 align-item-center">
+                        <div class="icon fs-1 px-3 bg-warning-subtle rounded-3">
+                          <img src="gambar/Desain_tanpa_judul__5_-removebg-preview.jpg" width="100px" height="100px"
+                            alt="Matcha">
+                        </div>
+                        <div class="text px-3">
+                          <h5>Green Tea</h5>
+                          <div>Premium Japanese green tea with a rich, earthy flavor and smooth finish.</div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="#" class="text-dark text-decoration-none">
+                      <div class="d-flex p-2 align-item-center">
+                        <div class="icon fs-1 px-3 bg-warning-subtle rounded-3">
+                          <img src="gambar/Desain_tanpa_judul__6_-removebg-preview.png" width="100px" height="100px"
+                            alt="Milk Tea">
+                        </div>
+                        <div class="text px-3">
+                          <h5>Milk Tea</h5>
+                          <div>Creamy milk tea with a perfect balance of robust tea flavor and smooth dairy richness.
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <a href="#best-seller" class="nav-link">Best Seller</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about-us">About Us</a>
+            </li>
+          </ul>
+
+          <!-- Tombol Login atau Username -->
+          <div class="d-flex align-items-center">
+            <?php if (isset($_SESSION['user'])): ?>
+              <div class="dropdown">
+                <button class="btn btn-outline-success dropdown-toggle py-2 px-3" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+                </ul>
+              </div>
+            <?php else: ?>
+              <a href="login.php" class="btn btn-outline-success py-2 px-3">
+                <i class="bi bi-person"></i> Login
+              </a>
+            <?php endif; ?>
+          </div>
+
+
+        </div>
+      </div>
+    </nav>
+  </header>
 
   <!-- Hero Carousel -->
   <section class="hero-section">
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="8000">
-          <img src="gambar/11.png" class="d-block w-100" alt="Leafly Tea Showcase" />
+          <img src="gambar/1.png" class="d-block w-100" alt="Leafly Tea Showcase">
         </div>
         <div class="carousel-item" data-bs-interval="8000">
-          <img src="gambar/12.png" class="d-block w-100" alt="Leafly Tea Products" />
+          <img src="gambar/2.png" class="d-block w-100" alt="Leafly Tea Products">
         </div>
         <div class="carousel-item" data-bs-interval="8000">
-          <img src="gambar/13.png" class="d-block w-100" alt="Leafly Tea Experience" />
+          <img src="gambar/3.png" class="d-block w-100" alt="Leafly Tea Experience">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -66,7 +183,6 @@
         <hr class="mx-auto" style="width: 50px; height: 3px; background-color: #198754;">
         <p class="lead text-muted">Discover our most popular tea selections</p>
       </div>
-
       <div class="row g-4 justify-content-center">
         <!-- Matcha Tea Card -->
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
@@ -85,7 +201,6 @@
             </div>
           </div>
         </div>
-
         <!-- Lemon Tea Card -->
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
           <div class="card h-100 border-0 overflow-hidden shadow product-card">
@@ -103,7 +218,6 @@
             </div>
           </div>
         </div>
-
         <!-- Ice Tea Card -->
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
           <div class="card h-100 border-0 overflow-hidden shadow product-card">
@@ -121,7 +235,6 @@
             </div>
           </div>
         </div>
-
         <!-- Milk Tea Card -->
         <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
           <div class="card h-100 border-0 overflow-hidden shadow product-card">
@@ -140,7 +253,6 @@
           </div>
         </div>
       </div>
-
       <div class="text-center mt-5">
         <a href="produk-lainnya.php" class="btn btn-lg px-4 rounded-pill" style="background-color: #3f594a; color: white;" data-aos="fade-up" data-aos-duration="500">
           View More Products
@@ -154,17 +266,13 @@
     <div class="container">
       <div class="section-header text-center mb-5">
         <h2 class="display-5 fw-bold">About Us</h2>
-        <hr class="mx-auto" style="width: 50px; height: 3px; background-color:  #3f594a;">
+        <hr class="mx-auto" style="width: 50px; height: 3px; background-color: #3f594a;">
       </div>
-
       <div class="row align-items-center">
         <div class="col-lg-6 mb-4 mb-lg-0 text-center" data-aos="fade-right" data-aos-duration="1000">
-          <img src="gambar/Logo_1-removebg-preview.png"
-            class="img-fluid rounded shadow-sm"
-            alt="Leafly Tea Logo"
-            style="max-width: 60%; height: auto;">
+          <img src="gambar/Logo_1-removebg-preview.png" class="img-fluid rounded shadow-sm" alt="Leafly Tea Logo" style="max-width: 60%; height: auto;">
         </div>
-        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1000">
           <h3 class="fw-bold mb-3">Leafly Tea</h3>
           <p class="lead">
             Leafly Tea is a contemporary tea brand that brings authentic flavors with a modern twist. We're committed to serving high-quality teas made from carefully selected natural ingredients.
@@ -173,9 +281,9 @@
             With a spirit of innovation, we continuously introduce unique and refreshing flavor variants to accompany your special moments. Our teas are crafted to provide not just a beverage, but an experience.
           </p>
           <div class="mt-4">
-          <a href="about-us.php" class="btn rounded-pill px-4" style="background-color: #3f594a; color: white;">
-    Learn More
-</a>
+            <a href="about-us.php" class="btn rounded-pill px-4" style="background-color: #3f594a; color: white;">
+              Learn More
+            </a>
           </div>
         </div>
       </div>
@@ -190,7 +298,6 @@
         <hr class="mx-auto" style="width: 50px; height: 3px; background-color: #198754;">
         <p class="lead text-muted">Meet the faces behind our brand</p>
       </div>
-
       <div class="row justify-content-center">
         <!-- Brand Ambassador 1 -->
         <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000">
@@ -210,7 +317,6 @@
             </div>
           </div>
         </div>
-
         <!-- Brand Ambassador 2 -->
         <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
           <div class="card border-0 shadow-sm h-100 text-center p-3">
@@ -229,7 +335,6 @@
             </div>
           </div>
         </div>
-
         <!-- Brand Ambassador 3 -->
         <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
           <div class="card border-0 shadow-sm h-100 text-center p-3">
@@ -252,84 +357,8 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-5 bg-light">
-    <div class="container">
-      <div class="section-header text-center mb-5">
-        <h2 class="display-5 fw-bold">Customer Testimonials</h2>
-        <hr class="mx-auto" style="width: 50px; height: 3px; background-color: #198754;">
-        <p class="lead text-muted">What our customers say about us</p>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="5000">
-                <div class="testimonial-item text-center p-4">
-                  <div class="testimonial-img mb-3">
-                    <img src="/api/placeholder/80/80" class="rounded-circle border border-3 border-success" alt="Customer 1">
-                  </div>
-                  <h5 class="fw-bold">Dian Sastro</h5>
-                  <p class="text-muted mb-3">Jakarta</p>
-                  <div class="rating mb-3">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                  </div>
-                  <p class="fst-italic">"Leafly's Matcha is now my daily ritual. The quality is exceptional and the taste is perfectly balanced. I can't start my day without it!"</p>
-                </div>
-              </div>
-              <div class="carousel-item" data-bs-interval="5000">
-                <div class="testimonial-item text-center p-4">
-                  <div class="testimonial-img mb-3">
-                    <img src="/api/placeholder/80/80" class="rounded-circle border border-3 border-success" alt="Customer 2">
-                  </div>
-                  <h5 class="fw-bold">Andi Firmansyah</h5>
-                  <p class="text-muted mb-3">Surabaya</p>
-                  <div class="rating mb-3">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-half text-warning"></i>
-                  </div>
-                  <p class="fst-italic">"The Lemon Tea from Leafly is incredibly refreshing. I've tried many brands but this one has the perfect balance of tea strength and citrus flavor."</p>
-                </div>
-              </div>
-              <div class="carousel-item" data-bs-interval="5000">
-                <div class="testimonial-item text-center p-4">
-                  <div class="testimonial-img mb-3">
-                    <img src="/api/placeholder/80/80" class="rounded-circle border border-3 border-success" alt="Customer 3">
-                  </div>
-                  <h5 class="fw-bold">Siti Nurhaliza</h5>
-                  <p class="text-muted mb-3">Bandung</p>
-                  <div class="rating mb-3">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                  </div>
-                  <p class="fst-italic">"Milk Tea from Leafly has become my favorite afternoon treat. It's creamy, perfectly sweetened, and has authentic tea flavor that other brands just can't match."</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-indicators position-relative mt-3">
-              <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active bg-success" aria-current="true" aria-label="Testimonial 1"></button>
-              <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" class="bg-success" aria-label="Testimonial 2"></button>
-              <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" class="bg-success" aria-label="Testimonial 3"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Newsletter Section -->
-  <section id="newsletter" class="py-5 bg-success text-white">
+  <section id="newsletter" class="py-5 text-white" style="background-color: #3f594a;">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
@@ -348,8 +377,63 @@
     </div>
   </section>
 
-  <!-- Footer inclusion with PHP -->
-  <?php include "footer&js.html"; ?>
+  <!-- FOOTER -->
+  <footer class="bg-dark text-light py-4">
+    <div class="container px-4">
+      <div class="row">
+        <div class="col-6 col-lg-4">
+          <h3 class="pt-3 fw-bold">Leafly Tea</h3>
+          <p>Teh Yang Enak Dan Nyegerin!!!</p>
+          <p class="mb-0">+62 877-2522-3486</p>
+          <p class="mb-0">+62 889-0558-8200</p>
+        </div>
+        <div class="col">
+          <h4 class="pt-3 fw-bold">Menu</h4>
+          <ul class="list-unstyled">
+            <li><a href="error.html" class="text-decoration-none text-light">Ice Tea</a></li>
+            <li><a href="error.html" class="text-decoration-none text-light">Lemon Tea</a></li>
+            <li><a href="error.html" class="text-decoration-none text-light">Green Tea</a></li>
+            <li><a href="error.html" class="text-decoration-none text-light">Milk Tea</a></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4 class="pt-3 fw-bold">More</h4>
+          <ul class="list-unstyled">
+            <li><a href="#about-us" class="text-decoration-none text-light">About Us</a></li>
+            <li><a href="ba" class="text-decoration-none text-light">Brand Ambassador</a></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4 class="pt-3 fw-bold">Categories</h4>
+          <ul class="list-unstyled">
+            <li><a href="error.html" class="text-decoration-none text-light">Tea</a></li>
+            <!-- <li><a href="error.html" class="text-decoration-none text-light">link</a></li>
+                <li><a href="error.html" class="text-decoration-none text-light">link</a></li>
+                <li><a href="error.html" class="text-decoration-none text-light">link</a></li> -->
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h4 class="pt-3 fw-bold">Social Media</h4>
+          <div>
+            <a href="https://www.instagram.com/leafly_tea/?utm_source=ig_web_button_share_sheet" class="text-decoration-none text-light"><i class="bi bi-instagram fs-2 me-3"></i></a>
+            <a href="error.html" class="text-decoration-none text-light"><i class="bi bi-facebook fs-2 me-3"></i></a>
+            <a href="error.html" class="text-decoration-none text-light"><i class="bi bi-pinterest fs-2 me-3"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <p>2025 © Leafly Tea. All Right Reserved.</p>
+        <div class="d-flex">
+          <a href="tou.html" class="text-decoration-none text-light me-4">Term Of Use</a>
+          <a href="privacy policy.html" class="text-decoration-none text-light">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+  <!-- FOOTER -->
+
 
   <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -357,18 +441,15 @@
   <script>
     // Initialize AOS
     AOS.init();
-
     // Add product card hover effects
     document.addEventListener('DOMContentLoaded', function() {
       const productCards = document.querySelectorAll('.product-card');
-
       productCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
           this.classList.add('shadow-lg');
           this.style.transform = 'translateY(-5px)';
           this.style.transition = 'all 0.3s ease';
         });
-
         card.addEventListener('mouseleave', function() {
           this.classList.remove('shadow-lg');
           this.style.transform = 'translateY(0)';

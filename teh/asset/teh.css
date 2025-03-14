@@ -65,3 +65,10 @@ header {
 .best-seller h5 {
   font-weight: bold;
 }
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* jumlah baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

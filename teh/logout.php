@@ -1,13 +1,6 @@
 <?php
-// logout.php
-
-session_start(); // Mulai sesi
-
-// Hapus semua data sesi
-session_unset();
+session_start();
 session_destroy();
-
-// Redirect ke halaman login
-header("Location: login.php");
-exit();
+header('Location: index.php');
+exit;
 ?>
