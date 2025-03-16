@@ -218,7 +218,7 @@
                 $stokClass = '';
                 if ($d['stok'] <= 0) {
                     $stokStatus = 'Habis';
-                    $stokClass = 'out-stock';
+                    $stokClass = 'out-stock'; // Tambahin styling di CSS kalo mau
                 } elseif ($d['stok'] <= 5) {
                     $stokStatus = 'Stok: ' . $d['stok'];
                     $stokClass = 'low-stock';
@@ -262,12 +262,20 @@
                             <p class="product-description">Deskripsi produk tidak tersedia</p>
                         <?php } ?>
 
-                        <!-- Tombol Keranjang -->
+                        <!-- Tombol Keranjang atau Stok Habis -->
                         <div class="product-footer">
-                            <a href="database/produk/keranjang/keranjang.php?id=<?php echo $d['id'] ?>"
-                                class="btn btn-primary w-100 fw-bold text-white">
-                                <i class="bi bi-cart-plus me-2"></i> Masukkan ke Keranjang
-                            </a>
+                            <?php if ($d['stok'] > 0) { ?>
+                                <!-- Tombol Masukkan ke Keranjang -->
+                                <a href="database/produk/keranjang/keranjang.php?id=<?php echo $d['id'] ?>"
+                                    class="btn btn-primary w-100 fw-bold text-white">
+                                    <i class="bi bi-cart-plus me-2"></i> Masukkan ke Keranjang
+                                </a>
+                            <?php } else { ?>
+                                <!-- Tombol Stok Habis -->
+                                <button class="btn btn-secondary w-100 fw-bold" disabled>
+                                    <i class="bi bi-cart-x me-2"></i> Stok Habis
+                                </button>
+                            <?php } ?>
                         </div>
 
                     </div>
@@ -278,5 +286,6 @@
         </div>
     </div>
 </body>
+
 
 </html>

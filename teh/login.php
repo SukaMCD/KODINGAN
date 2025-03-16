@@ -1,78 +1,77 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Login - Finapp Style</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leafly Tea - Premium Tea Beverages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
         body {
-            background: linear-gradient(135deg, #4e54c8, #8f94fb);
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            background: #3f594a;
         }
 
-        .login-container {
-            background-color: #ffffff;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+        .container {
             width: 100%;
-            max-width: 400px;
+            display: flex;
+            max-width: 850px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .login-title {
+        .login {
+            width: 450px;
+            padding-right: 20px;
+        }
+
+        form {
+            width: 250px;
+            margin: 60px auto;
+        }
+
+        h1 {
+            margin: 20px;
             text-align: center;
-            margin-bottom: 30px;
-            font-weight: 600;
-            color: #4e54c8;
+            font-weight: bolder;
+            text-transform: uppercase;
         }
 
-        .form-label {
-            font-weight: 500;
-            color: #555;
+        hr {
+            border-top: 2px solid #3f594a;
         }
 
-        .form-control {
-            border-radius: 12px;
-            padding: 12px 15px;
-            transition: 0.3s;
-            border: 1px solid #ddd;
+        p {
+            text-align: center;
+            margin: 10px 0;
         }
 
-        .form-control:focus {
-            border-color: #4e54c8;
-            box-shadow: 0 0 8px rgba(78, 84, 200, 0.3);
+        .right {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .btn-primary {
-            background: linear-gradient(90deg, #4e54c8, #8f94fb);
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(90deg, #8f94fb, #4e54c8);
-        }
-
-        .form-icon {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #aaa;
+        .right img {
+            width: 80%;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
         .form-group {
@@ -80,81 +79,137 @@ session_start();
             margin-bottom: 20px;
         }
 
-        .form-group input {
-            padding-left: 40px;
+        .form-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3f594a;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 8px 8px 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
         }
 
         .forgot-pass {
             display: block;
             text-align: right;
-            margin-top: -10px;
             margin-bottom: 20px;
-            font-size: 14px;
-            color: #888;
+            color: #3f594a;
             text-decoration: none;
+            font-size: 14px;
         }
 
-        .forgot-pass:hover {
-            text-decoration: underline;
+        button {
+            border: none;
+            outline: none;
+            padding: 8px;
+            width: 100%;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+            background: #3f594a;
+        }
+
+        button:hover {
+            background: rgb(42, 58, 49);
         }
 
         .register-link {
             text-align: center;
             margin-top: 20px;
-            color: #888;
-            font-size: 14px;
         }
 
         .register-link a {
-            color: #4e54c8;
+            color: #3f594a;
+            font-weight: bold;
             text-decoration: none;
-            font-weight: 500;
         }
 
         .register-link a:hover {
             text-decoration: underline;
         }
 
-        footer {
-            text-align: center;
-            color: #aaa;
-            font-size: 12px;
-            margin-top: 20px;
+        @media (max-width: 880px) {
+            .container {
+                width: 100%;
+                max-width: 750px;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            form {
+                width: 300px;
+                margin: 20px auto;
+            }
+
+            .login {
+                width: 450px;
+                padding: 20px;
+            }
+
+            .right img {
+                width: 70%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .login {
+                width: 100%;
+            }
+
+            .right {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="container">
+        <div class="login">
+            <form action="proses_login.php" method="POST">
+                <h1>Login</h1>
+                <hr>
+                <p>Leafly Tea</p>
 
-    <div class="login-container">
-        <h2 class="login-title">Login Finapp</h2>
+                <div class="form-group">
+                    <i class="bi bi-person form-icon"></i>
+                    <input type="text" name="username" class="form-control" placeholder="Username" required>
+                </div>
 
-        <form action="proses_login.php" method="POST">
+                <div class="form-group">
+                    <i class="bi bi-lock form-icon"></i>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
 
-            <div class="form-group">
-                <i class="bi bi-person form-icon"></i>
-                <input type="text" name="username" class="form-control" placeholder="Username" required>
-            </div>
+                <a href="#" class="forgot-pass">Forgot password?</a>
 
-            <div class="form-group">
-                <i class="bi bi-lock form-icon"></i>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-            </div>
+                <button type="submit">Login</button>
 
-            <a href="#" class="forgot-pass">Lupa password?</a>
-
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-
-        </form>
-
-        <div class="register-link">
-            Belum punya akun? <a href="register.php">Daftar Sekarang</a>
+                <div class="register-link">
+                    Don't have an account? <a href="register.php">Register</a>
+                </div>
+            </form>
+        </div>
+        <div class="right">
+            <img src="gambar/Logo 1.png" alt="Leafly Tea">
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- Bootstrap Icons JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/bootstrap-icons.min.js"></script>
 </body>
 
 </html>

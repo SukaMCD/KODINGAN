@@ -23,6 +23,7 @@ session_start(); // Penting! Biar session-nya kebaca.
   <!-- Meta tags for SEO -->
   <meta name="description" content="Leafly Tea offers premium tea beverages with authentic flavors and a modern twist. Discover our collection of refreshing teas made from high-quality natural ingredients.">
   <meta name="keywords" content="tea, leafly, matcha, lemon tea, milk tea, premium tea">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -41,7 +42,7 @@ session_start(); // Penting! Biar session-nya kebaca.
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-center">
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Menu
@@ -107,40 +108,54 @@ session_start(); // Penting! Biar session-nya kebaca.
                   </div>
                 </div>
               </div>
-            </li>
+            </li> -->
 
             <li>
-              <a href="#best-seller" class="nav-link">Best Seller</a>
+              <a href="#product" class="nav-link">Product</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#about-us">About Us</a>
             </li>
           </ul>
 
-          <!-- Tombol Login atau Username -->
           <div class="d-flex align-items-center">
-            <?php if (isset($_SESSION['user'])): ?>
-              <div class="dropdown">
-                <button class="btn btn-outline-success dropdown-toggle py-2 px-3" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
-                </ul>
-              </div>
-            <?php else: ?>
-              <a href="login.php" class="btn btn-outline-success py-2 px-3">
-                <i class="bi bi-person"></i> Login
-              </a>
-            <?php endif; ?>
+            <!-- Tombol Keranjang -->
+            <a id="keranjangBtn" class="btn btn-custom py-2 px-3 me-2 position-relative" href="javascript:void(0);">
+              <i class="bi bi-cart"></i> Keranjang
+              <?php if (isset($_SESSION['keranjang']) && count($_SESSION['keranjang']) > 0): ?>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <?php echo count($_SESSION['keranjang']); ?>
+                </span>
+              <?php endif; ?>
+            </a>
+
           </div>
 
-
+          <!-- Tombol Login / Username -->
+          <?php if (isset($_SESSION['user'])): ?>
+            <div class="dropdown">
+              <button class="btn btn-outline-success dropdown-toggle py-2 px-3" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="database/produk/keranjang/riwayat.php">History</a></li> <!-- Tombol History disini -->
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+              </ul>
+            </div>
+          <?php else: ?>
+            <a href="login.php" class="btn py-2 px-3"
+              style="background-color: #3f594a; color: #fff;">
+              <i class="bi bi-person"></i> Login
+            </a>
+          <?php endif; ?>
         </div>
+
+
+      </div>
       </div>
     </nav>
   </header>
@@ -176,83 +191,113 @@ session_start(); // Penting! Biar session-nya kebaca.
   </section>
 
   <!-- Best Seller Section -->
-  <section class="best-seller py-5" id="best-seller">
+  <?php
+  include 'koneksi.php';
+  $query = "SELECT * FROM produk ORDER BY id DESC LIMIT 4"; // Bisa diubah limitnya
+  $result = mysqli_query($koneksi, $query);
+  ?>
+
+  <section class="best-seller py-5" id="product">
     <div class="container">
       <div class="section-header text-center mb-5">
-        <h2 class="display-5 fw-bold">BEST SELLER PRODUCTS</h2>
+        <h2 class="display-5 fw-bold">PRODUCTS</h2>
         <hr class="mx-auto" style="width: 50px; height: 3px; background-color: #198754;">
         <p class="lead text-muted">Discover our most popular tea selections</p>
       </div>
+
       <div class="row g-4 justify-content-center">
-        <!-- Matcha Tea Card -->
-        <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
-          <div class="card h-100 border-0 overflow-hidden shadow product-card">
-            <div class="product-img-container">
-              <img src="gambar/Desain_tanpa_judul__5_-removebg-preview.jpg" class="card-img-top" alt="Matcha Tea">
-            </div>
-            <div class="card-body text-light" style="background-color: #3f594a;">
-              <h5 class="card-title fw-bold">Green Tea</h5>
-              <hr>
-              <p class="card-text">Premium Japanese green tea with a rich, earthy flavor and smooth finish. Perfect for an energy boost.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="fs-5 fw-bold">Rp7.000,00</span>
-                <a href="#" class="btn btn-light">Buy Now</a>
+        <?php while ($row = mysqli_fetch_assoc($result)) {
+
+          // Cek status stok
+          $stokStatus = '';
+          $stokClass = '';
+          if ($row['stok'] <= 0) {
+            $stokStatus = 'Habis';
+            $stokClass = 'bg-danger';
+          } elseif ($row['stok'] <= 5) {
+            $stokStatus = 'Stok: ' . $row['stok'];
+            $stokClass = 'bg-warning';
+          } else {
+            $stokStatus = 'Stok: ' . $row['stok'];
+            $stokClass = 'bg-success';
+          }
+
+          $harga = isset($row['harga']) ? 'Rp ' . number_format($row['harga'], 0, ',', '.') . ',00' : 'Harga tidak tersedia';
+        ?>
+          <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
+            <div class="card h-100 border-0 overflow-hidden shadow product-card position-relative">
+
+              <!-- Badge Stok -->
+              <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge <?php echo $stokClass; ?>">
+                  <?php echo $stokStatus; ?>
+                </span>
+              </div>
+
+              <!-- Gambar Produk -->
+              <div class="product-img-container position-relative">
+                <?php if (!empty($row['gambar_produk'])) { ?>
+                  <img src="admin/FINAPP/database/produk/gambar/<?php echo $row['gambar_produk']; ?>" class="card-img-top square-image" alt="<?php echo $row['nama_barang']; ?>">
+                <?php } else { ?>
+                  <div class="no-image text-center py-5 text-muted square-placeholder">
+                    <i class="bi bi-image" style="font-size: 2rem;"></i>
+                    <p>Tidak ada gambar</p>
+                  </div>
+                <?php } ?>
+              </div>
+
+
+              <!-- Konten Produk -->
+              <div class="card-body text-light" style="background-color: #3f594a;">
+                <h5 class="card-title fw-bold"><?php echo $row['nama_barang']; ?></h5>
+                <hr>
+
+                <!-- Harga -->
+                <div class="fs-5 fw-bold mb-2"><?php echo $harga; ?></div>
+
+                <!-- Deskripsi -->
+                <?php if (!empty($row['deskripsi'])) { ?>
+                  <p class="card-text"><?php echo $row['deskripsi']; ?></p>
+                <?php } else { ?>
+                  <p class="card-text text-muted">Deskripsi tidak tersedia</p>
+                <?php } ?>
+
+                <!-- Tombol Keranjang -->
+                <div class="d-flex justify-content-center mt-3">
+                  <?php if ($row['stok'] > 0) { ?>
+
+                    <?php if (isset($_SESSION['user'])) { ?>
+                      <!-- User Sudah Login -->
+                      <a href="database/produk/keranjang/keranjang.php?id=<?php echo $row['id']; ?>"
+                        class="btn btn-light w-100 fw-bold">
+                        <i class="bi bi-cart-plus me-2"></i> Buy Now
+                      </a>
+                    <?php } else { ?>
+                      <!-- User Belum Login -->
+                      <button
+                        class="btn btn-light w-100 fw-bold btn-login-alert"
+                        data-namaproduk="<?php echo $row['nama_barang']; ?>">
+                        <i class="bi bi-cart-plus me-2"></i> Buy Now
+                      </button>
+                    <?php } ?>
+
+                  <?php } else { ?>
+                    <!-- Stok Habis -->
+                    <button class="btn btn-secondary w-100 fw-bold" disabled>
+                      <i class="bi bi-cart-x me-2"></i> Stok Habis
+                    </button>
+                  <?php } ?>
+                </div>
+
+
               </div>
             </div>
           </div>
-        </div>
-        <!-- Lemon Tea Card -->
-        <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
-          <div class="card h-100 border-0 overflow-hidden shadow product-card">
-            <div class="product-img-container">
-              <img src="gambar/Desain_tanpa_judul__5_-removebg-preview.png" class="card-img-top" alt="Lemon Tea">
-            </div>
-            <div class="card-body text-light" style="background-color: #3f594a;">
-              <h5 class="card-title fw-bold">Lemon Tea</h5>
-              <hr>
-              <p class="card-text">Refreshing black tea infused with zesty lemon for a bright, citrusy flavor that's perfect any time of day.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="fs-5 fw-bold">Rp7.000,00</span>
-                <a href="#" class="btn btn-light">Buy Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Ice Tea Card -->
-        <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
-          <div class="card h-100 border-0 overflow-hidden shadow product-card">
-            <div class="product-img-container">
-              <img src="gambar/s118465655369280292_p154_i4_w600__1_-removebg-preview.png" class="card-img-top" alt="Ice Tea">
-            </div>
-            <div class="card-body text-light" style="background-color: #3f594a;">
-              <h5 class="card-title fw-bold">Ice Tea</h5>
-              <hr>
-              <p class="card-text">Classic cold-brewed tea that's perfectly sweetened and deeply refreshing. Ideal for hot days.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="fs-5 fw-bold">Rp5.000,00</span>
-                <a href="#" class="btn btn-light">Buy Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Milk Tea Card -->
-        <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
-          <div class="card h-100 border-0 overflow-hidden shadow product-card">
-            <div class="product-img-container">
-              <img src="gambar/Desain_tanpa_judul__6_-removebg-preview.png" class="card-img-top" alt="Milk Tea">
-            </div>
-            <div class="card-body text-light" style="background-color: #3f594a;">
-              <h5 class="card-title fw-bold">Milk Tea</h5>
-              <hr>
-              <p class="card-text">Creamy milk tea with a perfect balance of robust tea flavor and smooth dairy richness.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="fs-5 fw-bold">Rp7.000,00</span>
-                <a href="#" class="btn btn-light">Buy Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <?php } ?>
       </div>
+
+      <!-- Tombol Lihat Produk Lainnya -->
       <div class="text-center mt-5">
         <a href="produk-lainnya.php" class="btn btn-lg px-4 rounded-pill" style="background-color: #3f594a; color: white;" data-aos="fade-up" data-aos-duration="500">
           View More Products
@@ -260,6 +305,8 @@ session_start(); // Penting! Biar session-nya kebaca.
       </div>
     </div>
   </section>
+
+
 
   <!-- About Us Section -->
   <section id="about-us" class="py-5 bg-light">
@@ -390,10 +437,10 @@ session_start(); // Penting! Biar session-nya kebaca.
         <div class="col">
           <h4 class="pt-3 fw-bold">Menu</h4>
           <ul class="list-unstyled">
-            <li><a href="error.html" class="text-decoration-none text-light">Ice Tea</a></li>
-            <li><a href="error.html" class="text-decoration-none text-light">Lemon Tea</a></li>
-            <li><a href="error.html" class="text-decoration-none text-light">Green Tea</a></li>
-            <li><a href="error.html" class="text-decoration-none text-light">Milk Tea</a></li>
+            <li><a href="error.php" class="text-decoration-none text-light">Ice Tea</a></li>
+            <li><a href="error.php" class="text-decoration-none text-light">Lemon Tea</a></li>
+            <li><a href="error.php" class="text-decoration-none text-light">Green Tea</a></li>
+            <li><a href="error.php" class="text-decoration-none text-light">Milk Tea</a></li>
           </ul>
         </div>
         <div class="col">
@@ -406,18 +453,18 @@ session_start(); // Penting! Biar session-nya kebaca.
         <div class="col">
           <h4 class="pt-3 fw-bold">Categories</h4>
           <ul class="list-unstyled">
-            <li><a href="error.html" class="text-decoration-none text-light">Tea</a></li>
-            <!-- <li><a href="error.html" class="text-decoration-none text-light">link</a></li>
-                <li><a href="error.html" class="text-decoration-none text-light">link</a></li>
-                <li><a href="error.html" class="text-decoration-none text-light">link</a></li> -->
+            <li><a href="error.php" class="text-decoration-none text-light">Tea</a></li>
+            <!-- <li><a href="error.php" class="text-decoration-none text-light">link</a></li>
+                <li><a href="error.php" class="text-decoration-none text-light">link</a></li>
+                <li><a href="error.php" class="text-decoration-none text-light">link</a></li> -->
           </ul>
         </div>
         <div class="col-6 col-lg-3">
           <h4 class="pt-3 fw-bold">Social Media</h4>
           <div>
             <a href="https://www.instagram.com/leafly_tea/?utm_source=ig_web_button_share_sheet" class="text-decoration-none text-light"><i class="bi bi-instagram fs-2 me-3"></i></a>
-            <a href="error.html" class="text-decoration-none text-light"><i class="bi bi-facebook fs-2 me-3"></i></a>
-            <a href="error.html" class="text-decoration-none text-light"><i class="bi bi-pinterest fs-2 me-3"></i></a>
+            <a href="error.php" class="text-decoration-none text-light"><i class="bi bi-facebook fs-2 me-3"></i></a>
+            <a href="error.php" class="text-decoration-none text-light"><i class="bi bi-pinterest fs-2 me-3"></i></a>
           </div>
         </div>
       </div>
@@ -457,6 +504,42 @@ session_start(); // Penting! Biar session-nya kebaca.
       });
     });
   </script>
+  <script>
+    const userLoggedIn = <?php echo isset($_SESSION['user']) ? 'true' : 'false'; ?>;
+
+    document.getElementById('keranjangBtn').addEventListener('click', function() {
+      if (!userLoggedIn) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops!',
+          text: 'Kamu harus login dulu untuk membuka keranjang!',
+          confirmButtonColor: '#3f594a'
+        });
+      } else {
+        window.location.href = 'database/produk/keranjang/tampil_keranjang.php';
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // Ambil semua tombol dengan class btn-login-alert
+    const loginButtons = document.querySelectorAll('.btn-login-alert');
+
+    loginButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const produk = button.getAttribute('data-namaproduk');
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops!',
+          text: `Kamu harus login dulu untuk membeli "${produk}"`,
+          confirmButtonColor: '#3f594a'
+        });
+      });
+    });
+  </script>
+
 </body>
 
 </html>
