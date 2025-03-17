@@ -1,4 +1,4 @@
-# 🚀 KODINGAN
+# KODINGAN
 
 1. **Clone The Repository**  
    ```bash
